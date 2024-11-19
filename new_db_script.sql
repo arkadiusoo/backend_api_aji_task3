@@ -58,3 +58,23 @@ INSERT INTO statuses (name) VALUES
 ('CANCELLED'),
 ('COMPLETED');
 
+-- test data
+
+INSERT INTO products (name, description, price_unit, weight_unit, category) VALUES
+('Laptop', 'A high-performance laptop.', 1200.00, 2.5, 'Electronics'),
+('Smartphone', 'Latest model with advanced features.', 800.00, 0.4, 'Electronics'),
+('Headphones', 'Noise-cancelling headphones.', 150.00, 0.3, 'Electronics'),
+('T-Shirt', 'Cotton T-shirt.', 20.00, 0.2, 'Clothing'),
+('Jeans', 'Comfortable denim jeans.', 50.00, 1.0, 'Clothing'),
+('Sneakers', 'Stylish running shoes.', 75.00, 1.2, 'Clothing'),
+('Bread', 'Freshly baked bread.', 2.50, 0.5, 'Food'),
+('Milk', '1 liter of whole milk.', 1.20, 1.0, 'Food'),
+('Cheese', 'Aged cheddar cheese.', 5.50, 0.3, 'Food'),
+('Chocolate', 'Dark chocolate bar.', 2.00, 0.2, 'Food');
+
+INSERT INTO orders (approval_date, status, username, email, phone_number) VALUES
+('2024-11-20 10:00:00', 'CONFIRMED', 'John Doe', 'john.doe@example.com', '123456789'),
+('2024-11-19 15:30:00', 'UNCONFIRMED', 'Jane Smith', 'jane.smith@example.com', '987654321'),
+('2024-11-18 14:00:00', 'COMPLETED', 'Alice Johnson', 'alice.j@example.com', '456123789'),
+('2024-11-17 11:00:00', 'CANCELLED', 'Bob Brown', 'bob.b@example.com', '789456123'),
+('2024-11-16 09:00:00', 'CONFIRMED', 'Charlie Green', 'charlie.g@example.com', '321654987');
