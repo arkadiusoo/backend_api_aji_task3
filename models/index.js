@@ -16,6 +16,6 @@ db.categories = require("./category.model")(sequelize, DataTypes);
 // db.products = require("./product.model")(sequelize, DataTypes);
 // db.orders = require("./order.model")(sequelize, DataTypes);
 // db.statuses = require("./status.model")(sequelize, DataTypes);
-// db.orderProduct = require("./order_product.model")(sequelize, DataTypes);
+db.orderProduct = require("./order_product.model")(sequelize, DataTypes);
 // exporting db object
 module.exports = db;
