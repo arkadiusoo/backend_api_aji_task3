@@ -17,8 +17,8 @@ app.get("/", (req, res) => {
 // Pobranie wszystkich kategorii
 app.get("/test", async (req, res) => {
   try {
-    const categories = await db.orderProduct.findAll(); // Pobiera wszystkie rekordy z tabeli `categories`
-    res.status(200).json(db.orderProduct); // Zwraca kategorie w formacie JSON
+    const test = await db.orders.findAll(); // Pobiera wszystkie rekordy z tabeli `categories`
+    res.status(200).json(test); // Zwraca kategorie w formacie JSON
   } catch (error) {
     res.status(500).json({
       message: "Wystąpił błąd podczas pobierania kategorii.",
