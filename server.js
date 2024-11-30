@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
 // Pobranie wszystkich kategorii
 app.get("/test", async (req, res) => {
   try {
-    const test = await db.orders.findAll(); // Pobiera wszystkie rekordy z tabeli `categories`
+    const test = await db.products.findAll(); // Pobiera wszystkie rekordy z tabeli `categories`
     res.status(200).json(test); // Zwraca kategorie w formacie JSON
   } catch (error) {
     res.status(500).json({
