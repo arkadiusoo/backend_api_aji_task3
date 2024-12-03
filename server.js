@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const productRoutes = require("./routes/product.routes");
+const categoryRoutes = require("./routes/category.routes");
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.get("/", (req, res) => {
 
 // routes register
 app.use("/products", productRoutes);
+app.use("/categories", categoryRoutes);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
