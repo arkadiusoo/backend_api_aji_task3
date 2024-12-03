@@ -20,7 +20,7 @@ exports.getAllOrders = async (req, res) => {
 // get order by username
 exports.getOrdersByUsername = async (req, res) => {
   try {
-    const { username } = req.query;
+    const { username } = req.params;
 
     if (!username) {
       return res.status(400).json({
@@ -120,7 +120,7 @@ exports.updateOrderStatus = async (req, res) => {
       (order.status === "CONFIRMED" && status === "UNCONFIRMED")
     ) {
       return res.status(400).json({
-        message: `Cannot change the status from "${order.status}" to "${status}".`,
+        message: `Cannot change the status from ${order.status} to ${status}.`,
       });
     }
 
@@ -184,7 +184,17 @@ exports.createProduct = async (req, res) => {
 // show by status
 exports.getOrdersByStatus = async (req, res) => {
   try {
-    const { status } = req.query;
+    const { statust } = req.params;
+
+    // Sprawdź, czy status1 został przesłany i jest stringiem
+    if (!statust || typeof statust !== "string") {
+      return res
+        .status(400)
+        .json({ message: 'Invalid or missing "status" parameter.' });
+    }
+
+    // Konwersja na wielkie litery
+    const status = statust.toUpperCase();
 
     if (!status) {
       return res.status(400).json({
@@ -235,10 +245,9 @@ exports.createOrder = async (req, res) => {
     }
 
     for (const item of products) {
-      if (!item.product_id || !item.quantity || item.quantity <= 0) {
+      if (!item.quantity || item.quantity <= 0) {
         return res.status(400).json({
-          message:
-            "Each product must have a valid product_id and quantity greater than zero.",
+          message: "Each product must have a quantity greater than zero.",
         });
       }
 

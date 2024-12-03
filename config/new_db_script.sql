@@ -1,3 +1,24 @@
+CREATE OR REPLACE FUNCTION set_approval_date()
+RETURNS TRIGGER AS $$
+BEGIN
+
+    IF NEW.status = 'CONFIRMED' THEN
+        NEW.approval_date = NOW()
+    END IF;
+
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER trigger_set_approval_date
+BEFORE UPDATE ON orders
+FOR EACH ROW
+WHEN (OLD.status IS DISTINCT FROM NEW.status)
+EXECUTE FUNCTION set_approval_date();
+
+
 -- this script creates new database for this task
 DROP TABLE IF EXISTS order_product;
 DROP TABLE IF EXISTS orders;

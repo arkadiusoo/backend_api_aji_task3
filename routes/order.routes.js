@@ -4,7 +4,7 @@ const orderController = require("../controllers/order.controller.js");
 
 router.get("/", orderController.getAllOrders);
 
-router.get("/user", orderController.getOrdersByUsername);
+router.get("/user/:username", orderController.getOrdersByUsername);
 
 router.get("/:id", orderController.getOrderById);
 
@@ -12,7 +12,7 @@ router.patch("/:id/status", orderController.updateOrderStatus);
 
 router.get("/:id/status", orderController.getOrderStatus);
 
-router.get("/status", orderController.getOrdersByStatus);
+router.get("/status/:statust", orderController.getOrdersByStatus);
 
 router.post("/", orderController.createOrder);
 
