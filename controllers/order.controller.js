@@ -101,15 +101,14 @@ exports.updateOrderStatus = async (req, res) => {
       });
     }
 
-    const validStatuses = [
-      "UNCONFIRMED",
-      "CONFIRMED",
-      "CANCELLED",
-      "COMPLETED",
-    ];
-    if (!validStatuses.includes(status)) {
+    const validStatuses = await Status.findAll({
+      attributes: ["name"],
+    });
+    const validStatusNames = validStatuses.map((status) => status.name);
+
+    if (!validStatusNames.includes(status)) {
       return res.status(400).json({
-        message: `Invalid status. Allowed statuses: ${validStatuses.join(
+        message: `Invalid status. Allowed statuses: ${validStatusNames.join(
           ", "
         )}`,
       });
