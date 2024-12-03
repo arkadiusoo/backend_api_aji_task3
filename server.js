@@ -1,22 +1,21 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const productRoutes = require("./routes/product.routes.js");
+const productRoutes = require("./routes/product.routes");
 
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// Prosty endpoint testowy
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to the shop backend API!" });
 });
 
-// Rejestrowanie tras
-app.use("/products", productRoutes); // Trasy dla produktów
+// routes register
+app.use("/products", productRoutes);
 
-// Uruchamianie serwera
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);

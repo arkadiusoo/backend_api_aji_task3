@@ -2,9 +2,14 @@ const express = require("express");
 const router = express.Router();
 const productController = require("../controllers/product.controller");
 
-// Definicja tras
+// routes definition
 router.get("/", productController.getAllProducts);
+
 router.get("/:id", productController.getProductById);
 
-// Eksport routera
+router.post("/", productController.createProduct);
+
+router.put("/:id", productController.updateProduct);
+
+// router export
 module.exports = router;
