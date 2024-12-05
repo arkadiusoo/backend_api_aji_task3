@@ -56,10 +56,8 @@ exports.getSeoDescription = async (req, res) => {
 
     const data = await response.json();
 
-    // Pobranie opisu SEO z odpowiedzi
     const seoDescription = data.choices[0].message.content.trim();
 
-    // Zwrócenie wyniku w formacie HTML
     res.status(200).send(`
       <html>
         <body>
