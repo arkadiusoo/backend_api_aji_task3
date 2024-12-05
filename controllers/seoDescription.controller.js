@@ -1,26 +1,26 @@
+require("dotenv").config();
 const db = require("../models");
-const fetch = require("node-fetch");
 const Product = db.products;
 
 exports.getSeoDescription = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // get product
+    // Pobranie produktu z bazy danych
     const product = await Product.findByPk(id);
 
     if (!product) {
       return res.status(404).json({ message: "Product not found." });
     }
 
-    // request to Groq
+    // Przygotowanie zapytania do Groq
     const response = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.BEARER_KEY}`,
+          Authorization: `Bearer ${process.env.BEARER_KEY}`, // Klucz z pliku .env
         },
         body: JSON.stringify({
           messages: [
@@ -34,7 +34,7 @@ exports.getSeoDescription = async (req, res) => {
               content: `
                 Name: ${product.name}
                 Category: ${product.category}
-                Price: ${product.price_unit} USD
+                Price: ${product.price_unit}
                 Description: ${product.description}
               `,
             },
@@ -48,10 +48,18 @@ exports.getSeoDescription = async (req, res) => {
       }
     );
 
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch SEO description: ${response.statusText}`
+      );
+    }
+
     const data = await response.json();
 
+    // Pobranie opisu SEO z odpowiedzi
     const seoDescription = data.choices[0].message.content.trim();
 
+    // Zwrócenie wyniku w formacie HTML
     res.status(200).send(`
       <html>
         <body>
@@ -64,11 +72,9 @@ exports.getSeoDescription = async (req, res) => {
     `);
   } catch (error) {
     console.error("Error generating SEO description:", error.message);
-    res
-      .status(500)
-      .json({
-        message: "Error generating SEO description.",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Error generating SEO description.",
+      error: error.message,
+    });
   }
 };
