@@ -1,3 +1,8 @@
+DROP SEQUENCE IF EXISTS my_incremen_2;
+CREATE SEQUENCE my_increment_2 
+	START WITH 100
+	INCREMENT BY 1;
+
 CREATE OR REPLACE FUNCTION set_approval_date()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -68,6 +73,13 @@ CREATE TABLE order_product (
     quantity INT NOT NULL CHECK (quantity > 0)
 );
 
+CREATE TABLE users (
+    id INT DEFAULT NEXTVAL('my_increment_2') PRIMARY KEY,
+    username TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL,
+    role TEXT CHECK (role IN ('KLIENT', 'PRACOWNIK')) NOT NULL
+);
+
 INSERT INTO categories (name) VALUES
 ('Electronics'),
 ('Clothing'),
@@ -99,3 +111,7 @@ INSERT INTO orders (approval_date, status, username, email, phone_number) VALUES
 ('2024-11-18 14:00:00', 'COMPLETED', 'Alice Johnson', 'alice.j@example.com', '456123789'),
 ('2024-11-17 11:00:00', 'CANCELLED', 'Bob Brown', 'bob.b@example.com', '789456123'),
 ('2024-11-16 09:00:00', 'CONFIRMED', 'Charlie Green', 'charlie.g@example.com', '321654987');
+
+INSERT INTO users (username, password, role) VALUES
+('client1', 'test_1', 'KLIENT'), 
+('worker1', 'test_2', 'PRACOWNIK');
