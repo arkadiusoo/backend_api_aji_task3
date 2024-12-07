@@ -91,6 +91,14 @@ INSERT INTO statuses (name) VALUES
 ('CANCELLED'),
 ('COMPLETED');
 
+CREATE TABLE opinions (
+    id SERIAL PRIMARY KEY,
+    order_id INT NOT NULL,
+    rating INT CHECK (rating >= 1 AND rating <= 5),
+    content TEXT NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+);
+
 -- test data
 
 INSERT INTO products (name, description, price_unit, weight_unit, category) VALUES

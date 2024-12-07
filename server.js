@@ -12,7 +12,7 @@ const {
   authenticateToken,
   authorizeRole,
 } = require("./middleware/auth.middleware");
-
+const opinionRoutes = require("./routes/opinion.routes");
 const app = express();
 
 app.use(cors());
@@ -29,6 +29,7 @@ app.use("/categories", authenticateToken, categoryRoutes);
 app.use("/status", authenticateToken, authorizeRole(["WORKER"]), statusRoutes);
 app.use("/orders", authenticateToken, orderRoutes);
 app.use("/auth", authRoutes);
+app.use(opinionRoutes);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
