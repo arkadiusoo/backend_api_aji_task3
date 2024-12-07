@@ -13,8 +13,18 @@ exports.authenticateToken = (req, res, next) => {
     if (err) {
       return res.status(403).json({ message: "Invalid or expired token." });
     }
-
     req.user = user;
     next();
   });
+};
+
+exports.authorizeRole = (roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return res
+        .status(403)
+        .json({ message: "Access denied. Insufficient permissions." });
+    }
+    next();
+  };
 };

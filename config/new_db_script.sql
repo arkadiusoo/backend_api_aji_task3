@@ -77,7 +77,7 @@ CREATE TABLE users (
     id INT DEFAULT NEXTVAL('my_increment_2') PRIMARY KEY,
     username TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
-    role TEXT CHECK (role IN ('KLIENT', 'PRACOWNIK')) NOT NULL
+    role TEXT CHECK (role IN ('CLIENT', 'WORKER')) NOT NULL
 );
 
 INSERT INTO categories (name) VALUES

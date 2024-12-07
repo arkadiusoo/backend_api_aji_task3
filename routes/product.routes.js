@@ -2,16 +2,36 @@ const express = require("express");
 const router = express.Router();
 const productController = require("../controllers/product.controller");
 const seoDescriptionController = require("../controllers/seoDescription.controller");
+const {
+  authenticateToken,
+  authorizeRole,
+} = require("../middleware/auth.middleware");
 
-// routes definition
-router.get("/", productController.getAllProducts);
+// for all users
+router.get("/", authenticateToken, productController.getAllProducts);
 
-router.get("/:id", productController.getProductById);
+router.get("/:id", authenticateToken, productController.getProductById);
 
-router.post("/", productController.createProduct);
+router.get(
+  "/:id/seo-description",
+  authenticateToken,
+  seoDescriptionController.getSeoDescription
+);
 
-router.put("/:id", productController.updateProduct);
+// only for workers
+router.post(
+  "/",
+  authenticateToken,
+  authorizeRole(["WORKER"]),
+  productController.createProduct
+);
 
-router.get("/:id/seo-description", seoDescriptionController.getSeoDescription);
+router.put(
+  "/:id",
+  authenticateToken,
+  authorizeRole(["WORKER"]),
+  productController.updateProduct
+);
+
 // router export
 module.exports = router;

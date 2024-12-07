@@ -35,3 +35,33 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: "Login failed.", error: error.message });
   }
 };
+
+exports.refreshToken = async (req, res) => {
+  try {
+    const { token } = req.body;
+
+    if (!token) {
+      return res.status(400).json({ message: "Refresh token is required." });
+    }
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+      if (err) {
+        return res
+          .status(403)
+          .json({ message: "Invalid or expired refresh token." });
+      }
+
+      const newToken = jwt.sign(
+        { id: user.id, username: user.username, role: user.role },
+        process.env.JWT_SECRET,
+        { expiresIn: process.env.JWT_EXPIRATION }
+      );
+
+      res.status(200).json({ token: newToken });
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error refreshing token.", error: error.message });
+  }
+};
