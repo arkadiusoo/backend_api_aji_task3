@@ -72,7 +72,7 @@ CREATE TABLE order_product (
         CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES products(id),
     quantity INT NOT NULL CHECK (quantity > 0)
 );
-
+--D2
 CREATE TABLE users (
     id INT DEFAULT NEXTVAL('my_increment_2') PRIMARY KEY,
     username TEXT UNIQUE NOT NULL,

@@ -1,10 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+require("dotenv").config();
+
 const productRoutes = require("./routes/product.routes");
 const categoryRoutes = require("./routes/category.routes");
 const statusRoutes = require("./routes/status.routes");
 const orderRoutes = require("./routes/order.routes");
+const authRoutes = require("./routes/auth.routes");
 
 const app = express();
 
@@ -21,6 +24,7 @@ app.use("/products", productRoutes);
 app.use("/categories", categoryRoutes);
 app.use("/status", statusRoutes);
 app.use("/orders", orderRoutes);
+app.use("/auth", authRoutes);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
