@@ -6,6 +6,9 @@ const {
   authenticateToken,
   authorizeRole,
 } = require("../middleware/auth.middleware");
+const multer = require("multer");
+// config multer for file managment
+const upload = multer({ storage: multer.memoryStorage() });
 
 // for all users
 router.get("/", authenticateToken, productController.getAllProducts);
@@ -19,6 +22,14 @@ router.get(
 );
 
 // only for workers
+router.post(
+  "/init",
+  authenticateToken,
+  authorizeRole(["WORKER"]),
+  upload.single("file"),
+  productController.initializeProducts
+);
+
 router.post(
   "/",
   authenticateToken,
