@@ -115,7 +115,7 @@ exports.updateOrderStatus = async (req, res) => {
     }
 
     if (
-      (order.status === "COMPLETED" && status !== "CANCELLED") ||
+      order.status === "COMPLETED" ||
       (order.status === "CONFIRMED" && status === "UNCONFIRMED") ||
       (order.status === "UNCONFIRMED" && status === "COMPLETED")
     ) {
