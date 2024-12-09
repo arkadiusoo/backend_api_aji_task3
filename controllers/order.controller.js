@@ -116,7 +116,8 @@ exports.updateOrderStatus = async (req, res) => {
 
     if (
       (order.status === "COMPLETED" && status !== "CANCELLED") ||
-      (order.status === "CONFIRMED" && status === "UNCONFIRMED")
+      (order.status === "CONFIRMED" && status === "UNCONFIRMED") ||
+      (order.status === "UNCONFIRMED" && status === "COMPLETED")
     ) {
       return res.status(400).json({
         message: `Cannot change the status from ${order.status} to ${status}.`,
