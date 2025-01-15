@@ -22,14 +22,14 @@ exports.login = async (req, res) => {
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Invalid username or password." });
     }
-
+    const role = user.role;
     const token = jwt.sign(
       { id: user.id, username: user.username, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: process.env.JWT_EXPIRATION }
     );
 
-    res.status(200).json({ token });
+    res.status(200).json({ token, role });
   } catch (error) {
     console.error("Error during login:", error.message);
     res.status(500).json({ message: "Login failed.", error: error.message });
