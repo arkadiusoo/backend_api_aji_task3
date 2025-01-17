@@ -10,7 +10,7 @@ const {
 router.get(
   "/products",
   authenticateToken,
-  authorizeRole(["WORKER"]),
+  // authorizeRole(["WORKER"]),
   orderController.getAllProductsFromOrders
 );
 router.get(
@@ -23,7 +23,7 @@ router.get(
 router.get(
   "/user/:username",
   authenticateToken,
-  authorizeRole(["WORKER"]),
+  // authorizeRole(["WORKER"]),
   orderController.getOrdersByUsername
 );
 
