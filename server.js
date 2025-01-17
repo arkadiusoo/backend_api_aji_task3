@@ -8,6 +8,7 @@ const categoryRoutes = require("./routes/category.routes");
 const statusRoutes = require("./routes/status.routes");
 const orderRoutes = require("./routes/order.routes");
 const authRoutes = require("./routes/auth.routes");
+const userRoutes = require("./routes/users.routes");
 const {
   authenticateToken,
   authorizeRole,
@@ -30,6 +31,7 @@ app.use("/status", authenticateToken, authorizeRole(["WORKER"]), statusRoutes);
 app.use("/orders", authenticateToken, orderRoutes);
 app.use("/auth", authRoutes);
 app.use(opinionRoutes);
+app.use("/users", userRoutes);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

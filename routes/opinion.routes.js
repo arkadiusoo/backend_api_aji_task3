@@ -8,5 +8,6 @@ router.post(
   authenticateToken,
   opinionController.addOpinion
 );
+router.get("/user/:username", opinionController.getOpinionsByUsername);
 
 module.exports = router;

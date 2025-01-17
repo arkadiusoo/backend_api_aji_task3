@@ -27,7 +27,7 @@ exports.getSeoDescription = async (req, res) => {
             {
               role: "system",
               content:
-                "You will receive a product's name, category, price, and description. Generate a short, SEO-optimized description for the product. Use a professional and engaging tone. Respond with the description only, without any additional information or explanations.",
+                "You will receive a product's name, category, price, and description. Your task is to generate a short, SEO-optimized description for the product. Use a professional, engaging tone and focus on highlighting the product's value and appeal. Always respond with the description only. Do not include any explanations, opinions, or comments about the data, even if it appears incorrect or unclear. Just generate a compelling description based on the provided information.",
             },
             {
               role: "user",
@@ -62,7 +62,7 @@ exports.getSeoDescription = async (req, res) => {
       <html>
         <body>
           <h1>${product.name}</h1>
-          <p>${seoDescription}</p>
+          <p class='description'>${seoDescription}</p>
           <p>Category: ${product.category}</p>
           <p>Price: ${product.price_unit} USD</p>
         </body>
