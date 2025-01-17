@@ -1,4 +1,5 @@
 const db = require("../models");
+const { sequelize } = require("../models");
 const Order = db.orders;
 const Product = db.products;
 const OrderProduct = db.orderProduct;
@@ -282,6 +283,44 @@ exports.createOrder = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: "Error creating order.",
+      error: error.message,
+    });
+  }
+};
+
+exports.getAllProductsFromOrders = async (req, res) => {
+  try {
+    const products = await sequelize.query(
+      `
+      SELECT 
+        p.name, 
+        p.description, 
+        op.quantity, 
+        p.price_unit, 
+        p.id, 
+        p.weight_unit,
+        op.order_id
+      FROM 
+        order_product as op
+      JOIN 
+        products as p 
+      ON 
+        op.product_id = p.id
+      `,
+      {
+        type: sequelize.QueryTypes.SELECT,
+      }
+    );
+
+    if (!products || products.length === 0) {
+      return res.status(404).json({ message: "No products found." });
+    }
+
+    res.status(200).json(products);
+  } catch (error) {
+    console.error("Error fetching products:", error.message);
+    res.status(500).json({
+      message: "Error fetching products.",
       error: error.message,
     });
   }

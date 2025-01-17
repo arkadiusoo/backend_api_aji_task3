@@ -8,6 +8,12 @@ const {
 
 // only for workers
 router.get(
+  "/products",
+  authenticateToken,
+  authorizeRole(["WORKER"]),
+  orderController.getAllProductsFromOrders
+);
+router.get(
   "/",
   authenticateToken,
   authorizeRole(["WORKER"]),
