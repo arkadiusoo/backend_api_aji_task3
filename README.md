@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-The project aims to create a server-side application for an online shop, providing an API for managing products, orders, categories, and order statuses. Data is stored in a relational or non-relational database, and the application includes validation, error handling, and business logic.
+The project aims to create a server-side application for an online shop, providing an API for managing products, orders, categories, and order statuses. Data is stored in a relational database, and the application includes validation, error handling, and business logic.
 
 ## Core Requirements
 
